@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<title>Image Gengerator</title>
+	</head>
+	<body>
+		<img class="imgGen">
+		add a class to an image tag and query that class
+
+		<img class="imgGen" data-size="200">
+		add data-size to the tag and it will over ride the image options below.
+		<br>This example will build a 200x200 image
+
+
+		<img class="imgGen" data-size="200 250">
+		this example will build a 200x250 size image
+
+		<script type="text/javascript" src="image-generator.js"></script>
+		<script>
+		var images = document.querySelectorAll('.imgGen');
+		for (var i = 0; i < images.length; i++) {
+			var s = new ImageGenerator(images[i], 100, 100);
+		}
+		</script>
+	</body>
+</html>

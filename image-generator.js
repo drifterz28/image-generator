@@ -51,29 +51,12 @@ ImageGenerator.prototype = {
 	},
 	rect: function() {
 		var rect = document.createElementNS(this.svgNS, 'rect');
-		rect.setAttribute('x', this.randomSize());
-		rect.setAttribute('y', this.randomSize());
-		rect.setAttribute('width', this.randomSizeW());
-		rect.setAttribute('height', this.randomSizeH());
-		rect.setAttribute('fill', this.randomColor());
-		//rect.setAttribute('stroke-width', 5);
-		//rect.setAttribute('stroke', this.randomColor());
-		this.svg.appendChild(rect);
-	},
-	background: function() {
-		var rect = document.createElementNS(this.svgNS, 'rect');
 		rect.setAttribute('x', 0);
 		rect.setAttribute('y', 0);
 		rect.setAttribute('width', this.imgWidth);
 		rect.setAttribute('height', this.imgHeight);
-		rect.setAttribute('fill', this.randomColor());
+		rect.setAttribute('fill', this.randomColor(true));
 		this.svg.appendChild(rect);
-	},
-	randomSizeH: function() {
-		return this.getRandom(0, this.imgHeight);
-	},
-	randomSizeW: function() {
-		return this.getRandom(0, this.imgWidth);
 	},
 	randomSize: function() {
 		return this.getRandom(0, this.imgHeight);
@@ -81,19 +64,24 @@ ImageGenerator.prototype = {
 	getRandom: function(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	},
-	randomColor: function() {
+	randomColor: function(noAlpha) { // noAlpha = bool
 		var r = this.getRandom(0, 255);
 		var g = this.getRandom(0, 255);
 		var b = this.getRandom(0, 255);
-		return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+		var a = Math.random().toFixed(2);
+		if(noAlpha) {
+			return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+		} else {
+			return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
+		}
 	},
 	init: function() {
-		var loops = this.getRandom(1, 10);
-		this.background();
+		var loops = this.getRandom(10, 20);
+		this.rect();
 		for (var i = 0; i < loops; i++) {
-			if(i % 3 === 0) {
+			if(i % 2 === 0) {
 				this.line();
-			} else if (i % 2 === 0) {
+			} else {
 				this.circle();
 			}
 		}
